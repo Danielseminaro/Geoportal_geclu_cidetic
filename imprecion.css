@@ -1,0 +1,29 @@
+#sidebar {
+    display:none;
+}          
+   
+   
+#drawControl{
+
+  display:none;
+
+}          
+ 
+ 
+@page {
+
+ size: A4 portrait ; 
+ margin: 1%;
+
+}
+   
+
+   
+.imp {
+    display: none;
+}
+
+
+.leaflet-control-zoom {
+    display: none;
+}

@@ -1,0 +1,2 @@
+[1030/125924.359:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
+[1030/125924.374:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\Cafetera\AppData\Local\AVG\Browser\User Data\Crashpad\attachments\e5f005ad-6ae3-44f4-84d5-e61e386e82f1: El sistema no puede encontrar la ruta especificada. (0x3)

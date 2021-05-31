@@ -1,0 +1,423 @@
+
+*{
+    margin: 0px;
+	padding: 0px;
+    box-sizing: border-box;
+    
+
+}
+
+
+
+body{
+	font-family: 'Open sans';
+  background: #E8E8E8;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header{
+	padding: 10px;
+  background: #A8D18D;
+  flex: 0 0 110px;
+}
+
+.map-container {
+  flex: 1 1 800px;
+}
+
+footer {
+  background: #A8D18D;
+  flex: 0 0 110px;
+}
+
+.header {
+  margin: 10px;
+  height: 80px;
+}
+
+.logo-header {
+    height: 90px;
+}
+
+.simbolo-Geoportal{
+  height: 90px;
+  float: right;
+}
+
+
+
+.logo-geclu {
+    float: left;
+}
+
+.logo-unlu {
+    float: right;
+}
+
+
+
+.infobar {
+    background: #A8D18D;
+    font-family: Georgia;
+    font-size: xx-large;
+    font-weight: bold;
+    padding: 0 0 10px 10px;
+}
+
+.infobar-label {
+    color: #C20000;
+}
+
+.infobar-number {
+    color: #02205E;
+}
+
+.select2-container--default 
+.select2-selection--single 
+.select2-selection__rendered {
+    font-size: large;
+}
+
+.select2-results, 
+.select2-search, 
+.select2-search input { 
+    font-family: Georgia;
+    font-weight: bold;
+}
+
+.leaflet-control-layers-expanded {
+    padding: 6px 10px 6px 6px;
+    color: rgb(8, 8, 8);
+    background: rgb(194, 231, 194); 
+    border: 2px none rgba(203, 231, 186, 0.2);
+
+}
+
+
+
+.icon-printer{
+    
+    background-color: #fff;
+    padding: 8px 8px ;
+    color: black;
+    border: 2px solid #ccc;
+    border-radius: 2px;
+    margin-left: 1px
+}
+
+
+
+
+.texto{
+
+color: white;
+font-family: Cambria;
+font-size: 17px;
+font-weight: bold;
+
+}
+
+.footer{
+    padding: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: small;
+    float: left;
+}
+
+.logo-footer {
+    height: 86px;
+    margin: 5px;
+}
+
+.a-footer {
+    text-decoration: none;
+}
+
+
+.link1{
+
+  text-decoration: none;
+  color: #ccc;
+ 
+}
+    
+
+.link2{
+
+  text-decoration: none;
+  color: #ccc;
+}
+    
+
+.link3{
+
+  text-decoration: none;
+  color: #ccc;
+}
+    
+.link4{
+
+  text-decoration: none;
+  color: #ccc;
+}
+    
+
+
+.info {
+
+color: white;
+font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+font-size: 16px;
+font-weight: bold;
+
+}
+
+
+
+
+
+
+
+
+
+.leaflet-control-layers{
+    width: 150%;
+    height: 150%;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+.leaflet-control-layers-expanded {
+    padding: 6px 10px 6px 6px;
+    color: rgb(20, 17, 17);
+    background: rgb(194, 231, 194); 
+    border: 2px none rgba(203, 231, 186, 0.2);
+
+}
+
+.leaflet-control-layers {
+    border-radius: none;
+    box-shadow: none;
+  }
+  
+  .leaflet-control-layers-list {
+    font-size: medium;
+    background: none !important;
+    color: rgb(255, 255, 255);
+  }
+
+  .leaflet-control-layers-base {
+    line-height: 15px;
+    padding-top: 10px;
+  }
+
+  .leaflet-control-layers-overlays {
+    line-height: 12px;
+    padding-top: 10px;
+    
+  }
+
+  
+  .leaflet-control-layers-expanded {
+    width: 100% !important;
+    padding: 0px;
+    background-color: transparent;
+    border: none !important;
+  }
+
+  .leaflet-control-layers-selector {
+    margin-right: 0.5em;
+  }
+  
+  #layercontrol {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+  }
+  
+  .leaflet-control-layers-list .title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  #layercontrol legend {
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+.icon-printer{
+    
+    background-color: #fff;
+    padding: 8px 8px ;
+    color: black;
+    border: 2px solid #ccc;
+    border-radius: 2px;
+    margin-left: 1px
+}
+
+
+.leaflet-sidebar-tabs {
+    background-color: rgba(7, 6, 6, 0.911) !important;
+  }
+  
+  .leaflet-sidebar-header {
+    background-color: rgba(0, 116, 217, 0.95) !important;
+  }
+  
+  .leaflet-sidebar-content {
+    background-color: #0a0909ec !important;
+  }
+  
+  #sidebar > div.leaflet-sidebar-tabs > ul > li > a {
+    color: white !important;
+  }
+  
+  #sidebar > div.leaflet-sidebar-tabs > ul > li:not(.disabled):not(.active) > a:hover {
+    color: rgb(15, 13, 13) !important;
+  }
+
+.label-año {
+    color: #02205E;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: large;   
+}
+
+.leaflet-top.leaflet-right > .leaflet-control {
+    /* Hace que los controles de la esquina superior derecha estén a la misma
+    altura. */
+    clear: none;
+}
+
+.mapa-no-disponible {
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 0 10px 0 10px;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: white;
+  color: #333;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+  width: 200px;
+  padding: 14px;
+  text-align: left;
+  border-radius: 12px;
+
+  font: 14px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 65535;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -100px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+
+
+
+
+
+
+
+
+
+#youtube-modal {
+  z-index: 65535;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+#youtube-modal-close {
+  z-index: 65535;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-image: url("img/Grey_close_x.svg");
+  cursor: pointer;
+}
+
+.youtube-player {
+  width: 70%;
+  min-width: 768px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .youtube-player {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+.youtube-embed-container {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+  flex: 3 1 560px;
+}
+
+#youtube-embed-video {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.youtube-selector-container {
+  flex: 1 1 150px;
+  overflow-y: auto;
+  padding-bottom: 56.25%;
+  height: 0;
+  background-color: black;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: white;
+}
+
+#youtube-selector {
+  list-style-type: none;
+}
+
+#youtube-selector li {
+  padding: 0.5ex 1ex;
+  margin-bottom: 1ex;
+  cursor: pointer;
+}
+
+#youtube-selector li:hover {
+  background-color: #e8e8e8;
+  color: black;
+}

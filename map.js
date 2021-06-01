@@ -1,3 +1,9 @@
+// Agrega el método "last" a los arreglos, para obtener su último elemento.
+if (!Array.prototype.last) {
+    Array.prototype.last = function () {
+        return this[this.length - 1];
+    };
+};
 
 let myMap = L.map('myMap',{zoomDelta: 0.25,zoomSnap: 0}).setView ([-34.60,-59.10], 9 )   
 
@@ -1625,10 +1631,13 @@ var sliderAnioActual = null;
 var leyendaMesActual = null;
 /** Capa del mes seleccionado actualmente. */
 var capaMesActual = mapa3;
-/** Capa seleccionada de la barra lateral actualmente. */
-var capaLateralActual = null;
-/** Leyenda provista para una de las capas seleccionadas en la barra lateral. */
-var leyendaLateralActual = null;
+/**
+ * Pila de leyendas laterales, se activa una cuando se selecciona la capa
+ * correspondiente de la barra lateral. Permite seleccionar múltiples de estas
+ * capas y poder mostrar solo una, quitando de la pila cuando se de-selecciona
+ * la capa.
+ */
+var leyendasLateralesActivas = [];
 
 /** 
  * Quita la capa y la leyenda correspondiente actuales, para dar lugar a las 
@@ -1642,21 +1651,6 @@ function quitarCapaMesActual() {
     if (leyendaMesActual) {
         myMap.removeControl(leyendaMesActual);
         leyendaMesActual = null;
-    }
-}
-
-/**
- * Quita la capa y la leyenda correspondiente seleccionada desde la barra
- * lateral del mapa.
- */
-function quitarCapaLateralActual() {
-    if (capaLateralActual) {
-        myMap.removeLayer(capaLateralActual);
-        capaLateralActual = null;
-    }
-    if (leyendaLateralActual) {
-        myMap.removeControl(leyendaLateralActual);
-        leyendaLateralActual = null;
     }
 }
 
@@ -1677,14 +1671,15 @@ $("#select-año").change(e => {
                  * pongo las nuevas. 
                  */
                 quitarCapaMesActual();
-                quitarCapaLateralActual();
 
                 var mes = listaMeses[Object.keys(listaMeses)[e.value - 1]];
 
                 mes.mapa.addTo(myMap);
                 capaMesActual = mes.mapa;
 
-                mes.leyenda.addTo(myMap);
+                if (leyendasLateralesActivas.length == 0) {
+                    mes.leyenda.addTo(myMap);
+                }
                 leyendaMesActual = mes.leyenda;
             },
             activeColor: "#02205E"
@@ -1727,6 +1722,15 @@ myMap.on('overlayadd', function (event) {
     }
     if (leyenda) {
         leyenda.addTo(myMap);
+
+        // Agrego la leyenda de la nueva capa a la pila de leyendas, y oculto la leyenda mensual activa.
+        if (leyendasLateralesActivas.length > 0) {
+            leyendasLateralesActivas.last().remove();
+        }
+        leyendasLateralesActivas.push(leyenda);
+        if (leyendaMesActual) {
+            leyendaMesActual.remove();
+        }
     }
 });
 
@@ -1745,6 +1749,22 @@ myMap.on('overlayremove', function (event) {
     }
     if (leyenda) {
         myMap.removeControl(leyenda);
+
+        if (leyendasLateralesActivas.length > 0) {
+            // Saco la leyenda lateral actual de la pila y activo la que sigue, si existe.
+            leyendasLateralesActivas.splice(
+                leyendasLateralesActivas.indexOf(leyenda), 1
+            );
+            if (leyendasLateralesActivas.length > 0) {
+                leyendasLateralesActivas.last().addTo(myMap);
+            }
+        }
+        if (leyendasLateralesActivas.length == 0) {
+            // Si no quedan más capas laterales, muestro la leyenda de la capa mensual.
+            if (leyendaMesActual) {
+                leyendaMesActual.addTo(myMap);
+            }
+        }
     }
 });
 

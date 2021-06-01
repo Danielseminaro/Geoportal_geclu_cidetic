@@ -50,51 +50,12 @@ var mapa21 = L.geoJSON(mar_2021,{style:style21,popup:popup21})
 var mapa22 = L.geoJSON(abr_2021,{style:style22,popup:popup22})
 var mapa23 = L.geoJSON(may_2021,{style:style23,popup:popup22})
 var mapa24 = L.geoJSON(mortalidad,{style:style24,popup:popup24})
+var mapa25 = L.geoJSON(aglomeracion,{style:style25,popup:popup25})
+var mapa26 = L.geoJSON(puntos_2020,{pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, MarkerOptions);},style:estilo26,onEachFeature:popup18});
 
 
 
-const DATOS = [
-    { nombre: 'Pilar', lat: -34.4582696, lng: -58.9146566, casos: 3318 },
-    { nombre: 'Chacabuco', lat: -34.6432577, lng: -60.4746223, casos: 30 },
-    { nombre: 'Carmen de Areco', lat: -34.3764562, lng: -59.8233220, casos: 36 },
-    { nombre: 'Exaltación de la Cruz', lat: -34.2799400, lng: -59.1062300, casos: 292 },
-    { nombre: 'Escobar', lat: -34.3477000, lng: -58.7971000, casos: 2827 },
-    { nombre: 'José C. Paz', lat: -34.5093880, lng: -58.7748438, casos: 4104 },
-    { nombre: 'Moreno', lat: -34.6391, lng: -58.7917, casos: 7246 },
-    { nombre: 'San Andres de Giles', lat: -34.4417541, lng: -59.4475955, casos: 48 },
-    { nombre: 'Suipacha', lat: -34.7680613, lng: -59.6868968, casos: 90 },
-    { nombre: 'Mercedes', lat: -34.6546566, lng: -59.4312716, casos: 542 },
-    { nombre: 'Lujan', lat: -34.5673399, lng: -59.1161120, casos: 1355 },
-    { nombre: 'Campana', lat: -34.1717516, lng: -58.9582586, casos: 758 },
-    { nombre: 'Gral. Rodriguez', lat: -34.5959552, lng: -58.9524114, casos: 1211 },
-    { nombre: 'San Fernando', lat: -34.4585172, lng: -58.5892594, casos: 3289 },
-]
 
-var capasCirculos = []
-
-for (let dato of DATOS) {
-    let radioCirculo = dato.casos * 2
-    let circulo = L.circle([dato.lat, dato.lng], {
-        color: 'black',
-        fillColor: '#000',
-        fillOpacity: 0.5,
-        radius: radioCirculo
-    });
-    circulo.bindPopup(`<b>${dato.nombre}</b>: ${dato.casos} casos`);
-    circulo.on('mouseover', function () { this.openPopup(); })
-    capasCirculos.push(circulo)
-}
-
-var casos_covid = L.layerGroup(capasCirculos);
-
-// ESTILOS DEL MAPA PUNTOS
-var legend1 = L.control({position: 'bottomright'});
-
-legend1.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'info legend1');
-    div.innerHTML += '<img src="img/Referencias.png" />';
-    return div;
-};
 
 
 
@@ -122,11 +83,6 @@ function styleA(feature) {
        fillOpacity: 0.7
    };
 }
-
-
-
-
-
 
 
 
@@ -187,9 +143,6 @@ function styleD(feature) {
         fillOpacity: 0.9
     };
 }
-
-
-
 
 
 
@@ -753,6 +706,64 @@ function style24(feature) {
     };
 }
 
+// ESTILOS MAPA 25
+
+
+function getColor25(d) {
+    return d > 74.050?  '#bd0026' :
+           d > 49.260?  '#bd0026' :
+           d > 32.560?  '#f03b20' :
+           d > 21.740?  '#fd8d3c':
+           d > 13.430?  '#fecc5c' :
+           d > 0.570?   '#ffffb2' :
+                        '#ffffb2';
+}
+
+
+
+
+function style25(feature) {
+    return {
+        fillColor: getColor25(feature.properties.pce),
+        weight: 2,
+        opacity: 1,
+        color: 'black',
+        dashArray: '5',
+        fillOpacity: 0.9
+    };
+}
+
+
+
+// ESTILOS MAPA 26
+
+
+var MarkerOptions ={
+    fillColor: "#0b0b0b",
+    color: "#0b0b0b",
+    weight: 1,
+    opacity: 1.5,
+    fillOpacity: 0.5
+};
+
+
+
+function getRadius(r) { 
+    return r > 100000 ? 55 : 
+    r > 4654 ? 45 : 
+    r > 2222? 35 : 
+    r > 1272 ? 25:  
+    r > 591 ? 15 : 
+    r > 28  ? 7 : 
+    r > 13 ? 3:
+            3; 
+};
+
+function estilo26 (feature) {
+    return{
+        radius: getRadius(feature.properties.nuevos_casos), 
+        };
+};
 
 
 
@@ -854,9 +865,11 @@ onLegendAdd(legend23,"img/ref_may_2021.png");
 var legend24 = createLegend();
 onLegendAdd(legend24,"img/ref_mortalidad.png");
 
+var legend25 = createLegend();
+onLegendAdd(legend25,"img/ref_aglomeracion.png");
 
-
-
+var legend26 = createLegend();
+onLegendAdd(legend26,"img/ref_casos_posi_20.png");
 
 
 //POPUP  DEL MAPA A
@@ -1319,7 +1332,53 @@ mapa24 = L.geoJson(mortalidad, {
 
 
 
+//  POPUP DEL MAPA 25
 
+
+function popup25 (feature, layer) {
+	layer.bindPopup(
+        "</p>Nombre: "+feature.properties.Nombre+
+        "</p>índice de aglomeración urbano-poblacional:"+feature.properties.pce+"</p>",
+               
+    {minWidth: 150, maxWidth: 200});
+    
+    layer.on('mouseover', function () { this.openPopup(); })
+
+
+};
+
+
+mapa25 = L.geoJson(aglomeracion, { 
+    style:style25, onEachFeature: popup25
+
+})
+
+
+
+// POPUP DEL MAPA 26
+
+
+
+function popup26 (feature, layer) {
+	layer.bindPopup(
+        "</p>Nombre: "+feature.properties.Nombre+
+        "</p> Casos:"+feature.properties.nuevos_casos+"</p>",
+               
+    {minWidth: 150, maxWidth: 200});
+    
+    layer.on('mouseover', function () { this.openPopup(); })
+
+
+};
+
+
+    
+var mapa26 = L.geoJSON(puntos_2020, {
+    pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, MarkerOptions);
+        },	
+    	style:estilo26,onEachFeature:popup26			
+});
 
 
 
@@ -1342,26 +1401,26 @@ var layerControl = L.control.layers.tree(
                     label: "Casos activos (24/05/21)",
                     layer: mapa1
                 },
+
                 {
                     label: "Tasa de contagios por cada 1000 hab.(24/05/21)",
                     layer: mapa5
                 },
+               
+                {
+                    label: "Capa de puntos: Casos confirmados (24/05/20)",
+                    layer: mapa26
+                },
+    
                 {
                     label: "Capa de puntos: Casos confirmados (24/05/21)",
-                    layer: casos_covid
-                },
-
-                {
-                    label: "Capa de puntos: Casos confirmados",
                     layer: mapa18
                 },
 
                 {
-                    label: "Tasa de mortalidad (cada 100 mil hab.)",
+                    label: "Tasa de mortalidad-cada 100 mil hab.(24/5/21) ",
                     layer: mapa24
                 }
-
-
 
             ]
         },
@@ -1377,13 +1436,19 @@ var layerControl = L.control.layers.tree(
                     layer: mapa16
                 },
                 {
-                    label: "Proximidad ",
+                    label: "Proximidad a Ciudad autónoma de Bs. As. ",
                     layer: mapa14
                 },
                 {
                     label: "Hogares con hacinamiento crítico",
                     layer: mapa17
+                },
+
+                {
+                    label: "índice de aglomeración urbano-poblacional",
+                    layer: mapa25
                 }
+
             ]
         }
     ],
@@ -1585,7 +1650,7 @@ var capas = {
         Octubre: { mapa: mapa11, leyenda: legendK },
         Noviembre: { mapa: mapa12, leyenda: legendL },
         Diciembre: { mapa: mapa13, leyenda: legendM },
-        
+       
 
     },
 
@@ -1711,15 +1776,17 @@ myMap.on('overlayadd', function (event) {
     switch (event.layer) {
         case mapa1: leyenda = legendA; break;
         case mapa5: leyenda = legendE; break;
-        case casos_covid: leyenda = legend1; break;
         case mapa14: leyenda = legendN; break;
         case mapa15: leyenda = legendÑ; break;
         case mapa16: leyenda = legendO; break;
         case mapa17: leyenda = legend17; break;
         case mapa18: leyenda = legend18; break;
         case mapa24: leyenda = legend24; break;
-
+        case mapa25: leyenda = legend25; break;
+        case mapa26: leyenda = legend26; break;
     }
+
+    
     if (leyenda) {
         leyenda.addTo(myMap);
 
@@ -1739,13 +1806,16 @@ myMap.on('overlayremove', function (event) {
     switch (event.layer) {
         case mapa1: leyenda = legendA; break;
         case mapa5: leyenda = legendE; break;
-        case casos_covid: leyenda = legend1; break;
         case mapa14: leyenda = legendN; break;
         case mapa15: leyenda = legendÑ; break;
         case mapa16: leyenda = legendO; break;
         case mapa17: leyenda = legend17; break;
         case mapa18: leyenda = legend18; break;
         case mapa24: leyenda = legend24; break;
+        case mapa25: leyenda = legend25; break;
+        case mapa26: leyenda = legend26; break;
+
+
     }
     if (leyenda) {
         myMap.removeControl(leyenda);

@@ -27,7 +27,6 @@ L.control.scale().addTo(myMap);
 
 // MAPAS
 
-var mapa1 = L.geoJSON(cuenca,{style:styleA,popup:popupA})
 var mapa3 = L.geoJSON(Mil_marzo,{style:styleC,popup:popupC})
 var mapa4 = L.geoJSON(Mil_abril,{style:styleD,popup:popupD})
 var mapa5 = L.geoJSON(tasa,{style:styleE,popup:popupE})
@@ -57,32 +56,6 @@ var mapa26 = L.geoJSON(puntos_2020,{pointToLayer: function (feature, latlng) {re
 
 
 
-
-
-// ESTILOS DEL MAPA A
-
-function getColorA(d) {
-    return d > 7300 ? '#800026' :
-           d > 7300 ? '#B00026' :
-           d > 2500 ? '#E31A1C' :
-           d > 2500?   '#FC4E2A' :
-           d > 500 ? '#FD8D3C' :
-           d > 500? '#FEB24C' :
-           d > 36 ? '#FED976' :
-                      '#FFEDA0';
-}
-
-
-function styleA(feature) {
-   return {
-       fillColor: getColorA(feature.properties.Casos_confi),
-       weight: 2,
-       opacity: 1,
-       color: 'red',
-       dashArray: '3',
-       fillOpacity: 0.7
-   };
-}
 
 
 
@@ -739,8 +712,8 @@ function style25(feature) {
 
 
 var MarkerOptions ={
-    fillColor: "#0b0b0b",
-    color: "#0b0b0b",
+    fillColor: "#2ca25f",
+    color: "#2ca25f",
     weight: 1,
     opacity: 1.5,
     fillOpacity: 0.5
@@ -792,8 +765,7 @@ function onLegendAdd(legend, imgSrc) {
     }
 }
 
-var legendA = createLegend();
-onLegendAdd(legendA, "img/Referencias2.png");
+
 
 
 var legendC = createLegend();
@@ -872,41 +844,8 @@ var legend26 = createLegend();
 onLegendAdd(legend26,"img/ref_casos_posi_20.png");
 
 
-//POPUP  DEL MAPA A
-
-
-function popupA (feature,layer){
-    /** 
-     * Popup que solo muestra el nombre del partido y la cantidad de casos, 
-     * para cuando se pasa el mouse por arriba. 
-    */
-
-
-    
- const contenido = `<b>${feature.properties.NOMBRE}</b>: ${feature.properties.Casos_confi} casos confirmados`
-
-      
-
-    layer.on('mouseover', function () {
-        this.bindPopup(contenido, { maxWidth: "auto" });
-        this.openPopup();
-    })
-
-    /**
-     * Popup que solo muestra el gráfico de casos del partido para cuando se
-     * hace click en el partido.
-    */
-
-    
-    const contenidoImg = `<img src="${feature.properties.IMAGENES}" style="width:800px;height:500px;">`
-    
-    layer.on('click', function () {
-        this.bindPopup(contenidoImg, { maxWidth: "auto" });
-        this.openPopup();
-    })
-}       
+ 
      
-
 
 
 // POPUP DEL MAPA C
@@ -1397,18 +1336,15 @@ var layerControl = L.control.layers.tree(
         {
             label: "Variables COVID-19",
             children: [
-                {
-                    label: "Casos activos (24/05/21)",
-                    layer: mapa1
-                },
+               
 
                 {
-                    label: "Tasa de contagios por cada 1000 hab.(24/05/21)",
+                    label: "Tasa de contagios-cada 100 mil hab.(24/05/21)",
                     layer: mapa5
                 },
                
                 {
-                    label: "Capa de puntos: Casos confirmados (24/05/20)",
+                    label: "Capa de puntos: Casos confirmados (24/08/20)",
                     layer: mapa26
                 },
     
@@ -1436,7 +1372,7 @@ var layerControl = L.control.layers.tree(
                     layer: mapa16
                 },
                 {
-                    label: "Proximidad a Ciudad autónoma de Bs. As. ",
+                    label: "Proximidad a Ciudad Autónoma de Bs. As. ",
                     layer: mapa14
                 },
                 {
@@ -1774,7 +1710,7 @@ $('#select-año').trigger("change");
 myMap.on('overlayadd', function (event) {
     var leyenda;
     switch (event.layer) {
-        case mapa1: leyenda = legendA; break;
+        
         case mapa5: leyenda = legendE; break;
         case mapa14: leyenda = legendN; break;
         case mapa15: leyenda = legendÑ; break;
@@ -1804,7 +1740,7 @@ myMap.on('overlayadd', function (event) {
 myMap.on('overlayremove', function (event) {
     var leyenda;
     switch (event.layer) {
-        case mapa1: leyenda = legendA; break;
+        
         case mapa5: leyenda = legendE; break;
         case mapa14: leyenda = legendN; break;
         case mapa15: leyenda = legendÑ; break;

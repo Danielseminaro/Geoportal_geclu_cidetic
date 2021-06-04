@@ -50,7 +50,7 @@ var mapa22 = L.geoJSON(abr_2021,{style:style22,popup:popup22})
 var mapa23 = L.geoJSON(may_2021,{style:style23,popup:popup22})
 var mapa24 = L.geoJSON(mortalidad,{style:style24,popup:popup24})
 var mapa25 = L.geoJSON(aglomeracion,{style:style25,popup:popup25})
-var mapa26 = L.geoJSON(puntos_2020,{pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, MarkerOptions);},style:estilo26,onEachFeature:popup18});
+var mapa26 = L.geoJSON(puntos_2020,{pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, MarkerOptions);},style:estilo26,onEachFeature:popup26});
 
 
 
@@ -484,24 +484,25 @@ var MarkerOptions ={
     weight: 1,
     opacity: 1.5,
     fillOpacity: 0.5
-};
+}
 
 
 
 function getRadius(r) { 
-    return r > 100000 ? 55 : 
-    r > 40749 ? 45 : 
-    r > 29562 ? 35 : 
-    r > 15821 ? 25:  
-    r > 9469 ? 15 : 
-    r > 2280  ? 7 : 
-    r > 745 ? 3:
+    return r = 40749? 45: 
+    r = 29562? 35: 
+    r = 15821? 25:  
+    r = 4727? 15: 
+    r = 2280? 7: 
+    r = 7.47? 3:
             3; 
 };
 
+
+
 function estilo18 (feature) {
     return{
-        radius: getRadius(feature.properties.may), 
+        radius: getRadius(feature.properties.mayo), 
         };
 };
 
@@ -712,8 +713,8 @@ function style25(feature) {
 
 
 var MarkerOptions ={
-    fillColor: "#2ca25f",
-    color: "#2ca25f",
+    fillColor: "#0b0b0b",
+    color: "#0b0b0b",
     weight: 1,
     opacity: 1.5,
     fillOpacity: 0.5
@@ -1109,7 +1110,7 @@ mapa17 = L.geoJson(hacinamiento, {
 function popup18 (feature, layer) {
 	layer.bindPopup(
         "</p>Nombre: "+feature.properties.Nombre+
-        "</p> Casos:"+feature.properties.may+"</p>",
+        "</p> Casos:"+feature.properties.mayo+"</p>",
                
     {minWidth: 150, maxWidth: 200});
     
@@ -1343,20 +1344,26 @@ var layerControl = L.control.layers.tree(
                     layer: mapa5
                 },
                
+
                 {
-                    label: "Capa de puntos: Casos confirmados (24/08/20)",
-                    layer: mapa26
+                    label: "Tasa de mortalidad-cada 100 mil hab.(24/5/21) ",
+                    layer: mapa24
                 },
-    
+
                 {
                     label: "Capa de puntos: Casos confirmados (24/05/21)",
                     layer: mapa18
                 },
 
+
                 {
-                    label: "Tasa de mortalidad-cada 100 mil hab.(24/5/21) ",
-                    layer: mapa24
-                }
+                    label: "Capa de puntos: Casos confirmados (24/08/20)",
+                    layer: mapa26
+                },
+    
+                
+
+               
 
             ]
         },
@@ -1381,7 +1388,7 @@ var layerControl = L.control.layers.tree(
                 },
 
                 {
-                    label: "índice de aglomeración urbano-poblacional",
+                    label: "Índice de aglomeración urbano-poblacional",
                     layer: mapa25
                 }
 

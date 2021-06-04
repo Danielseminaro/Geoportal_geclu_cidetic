@@ -42,7 +42,7 @@ var mapa14 = L.geoJSON(distancia,{style:styleN,popup:popupN})
 var mapa15 = L.geoJSON(dencidad,{style:styleÑ,popup:popupÑ})
 var mapa16 = L.geoJSON(urbano,{style:styleO,popup:popupO})
 var mapa17 = L.geoJSON(hacinamiento,{style:style17,popup:popup17})
-var mapa18 = L.geoJSON(puntos,{pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, MarkerOptions);},style:estilo18,onEachFeature:popup18});
+var mapa18 = L.geoJSON(puntos,{pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, MarkerOptions);}});
 var mapa19 = L.geoJSON(ene_2021,{style:style19,popup:popup19})
 var mapa20 = L.geoJSON(feb_2021,{style:style20,popup:popup20})
 var mapa21 = L.geoJSON(mar_2021,{style:style21,popup:popup21})
@@ -50,7 +50,7 @@ var mapa22 = L.geoJSON(abr_2021,{style:style22,popup:popup22})
 var mapa23 = L.geoJSON(may_2021,{style:style23,popup:popup22})
 var mapa24 = L.geoJSON(mortalidad,{style:style24,popup:popup24})
 var mapa25 = L.geoJSON(aglomeracion,{style:style25,popup:popup25})
-var mapa26 = L.geoJSON(puntos_2020,{pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, MarkerOptions);},style:estilo26,onEachFeature:popup26});
+var mapa26 = L.geoJSON(puntos_2020,{pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, MarkerOptions);}});
 
 
 
@@ -484,7 +484,7 @@ var MarkerOptions ={
     weight: 1,
     opacity: 1.5,
     fillOpacity: 0.5
-}
+};
 
 
 
@@ -494,7 +494,7 @@ function getRadius(r) {
     r = 15821? 25:  
     r = 4727? 15: 
     r = 2280? 7: 
-    r = 7.47? 3:
+    r = 747? 3:
             3; 
 };
 
@@ -1100,12 +1100,9 @@ mapa17 = L.geoJson(hacinamiento, {
 })
 
 
-
-
-
 // POPUP DEL MAPA 18
 
-
+/*
 
 function popup18 (feature, layer) {
 	layer.bindPopup(
@@ -1119,13 +1116,13 @@ function popup18 (feature, layer) {
 
 };
 
-
+*/
     
 var mapa18 = L.geoJSON(puntos, {
     pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, MarkerOptions);
         },	
-    	style:estilo18,onEachFeature:popup18			
+    	style:estilo18 /*,onEachFeature:popup18	*/		
 });
 
 

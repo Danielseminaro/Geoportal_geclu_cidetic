@@ -5,7 +5,7 @@ puntos = {
     "features": [
     { "type": "Feature", "properties": { "id": 1, "Nombre": "Tigre", "mayo": 34883 }, "geometry": { "type": "Point", "coordinates": [ -58.603886236139587, -34.382777597670263 ] } },
     { "type": "Feature", "properties": { "id": 2, "Nombre": "Pilar", "mayo": 40457 }, "geometry": { "type": "Point", "coordinates": [ -58.903332729958031, -34.448160236675051 ] } },
-    { "type": "Feature", "properties": { "id": 3, "Nombre": "Chacabuco", "mayo": 4727.00}, "geometry": { "type": "Point", "coordinates": [ -60.354307309636418, -34.618200997940633 ] } },
+    { "type": "Feature", "properties": { "id": 3, "Nombre": "Chacabuco", "mayo": 2700}, "geometry": { "type": "Point", "coordinates": [ -60.354307309636418, -34.618200997940633 ] } },
     { "type": "Feature", "properties": { "id": 4, "Nombre": "General Rodriguez", "mayo": 9469 }, "geometry": { "type": "Point", "coordinates": [ -58.98784679839676, -34.650615690106861 ] } },
     { "type": "Feature", "properties": { "id": 5, "Nombre": "Suipacha", "mayo": 747 }, "geometry": { "type": "Point", "coordinates": [ -59.703386048629511, -34.748574135246628 ] } },
     { "type": "Feature", "properties": { "id": 6, "Nombre": "Moreno", "mayo": 40749 }, "geometry": { "type": "Point", "coordinates": [ -58.810898508632832, -34.610680786594187 ] } },

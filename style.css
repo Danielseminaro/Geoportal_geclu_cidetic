@@ -127,6 +127,24 @@ font-weight: bold;
     float: left;
 }
 
+
+.rteright {
+
+  padding: 5px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: small;
+  float:right;
+ 
+  
+}
+
+
+
+.contador {
+
+  float:right;
+}
+
 .logo-footer {
     height: 86px;
     margin: 5px;

@@ -20,11 +20,11 @@ body{
 header{
 	padding: 10px;
   background: #A8D18D;
-  flex: 0 0 110px;
+  flex: 0 0 10px;
 }
 
 .map-container {
-  flex: 1 1 800px;
+  flex: 1 1 1000px;
 }
 
 footer {
@@ -34,7 +34,7 @@ footer {
 
 .header {
   margin: 10px;
-  height: 80px;
+  height: 90px;
 }
 
 .logo-header {
@@ -43,7 +43,7 @@ footer {
 
 .simbolo-Geoportal{
   margin-right: 50px;
-  height: 130px;
+  height: 100px;
   float: right;
 }
 
@@ -128,17 +128,6 @@ font-weight: bold;
 }
 
 
-.rteright {
-
-  padding: 5px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: small;
-  float:right;
- 
-  
-}
-
-
 
 .contador {
 
@@ -192,9 +181,6 @@ font-size: 16px;
 font-weight: bold;
 
 }
-
-
-
 
 
 

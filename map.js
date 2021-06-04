@@ -145,7 +145,7 @@ function styleE(feature) {
         opacity: 1,
         color: 'black',
         dashArray: '5',
-        fillOpacity: 0.9
+        fillOpacity: 1
     };
 }
 
@@ -492,7 +492,7 @@ function getRadius(r) {
     return r = 40749? 45: 
     r = 29562? 35: 
     r = 15821? 25:  
-    r = 4727? 15: 
+    r = 9464? 15: 
     r = 2280? 7: 
     r = 747? 3:
             3; 

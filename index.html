@@ -26,20 +26,15 @@
 <body>
 
 <header> 
-    <img src="img/logo.png" class="logo-header logo-geclu" alt="GECLU">
-
-    <img src="img/header.png" class="header" alt="Geoportal COVID-19 Cuenca del Río Luján">
-   
-
-    <a href="http://www.unlu.edu.ar" target="_blank">
-        <img src="img/logo_unlu.png" class="logo-header logo-unlu" alt="Universidad Nacional de Luján">
-        
-        <img src="img/simbolo.png" class="logo-header simbolo-Geoportal" alt="Simbolo Geoportal ">
-        
-
+    <img src="img/logo.png" alt="GECLU">
+    
+    <img src="img/header.png" alt="Geoportal COVID-19 Cuenca del Río Luján">
+    
+    <img class="header-right" src="img/simbolo.png" alt="Simbolo Geoportal ">
+    
+    <a href="http://www.unlu.edu.ar" target="_blank"> 
+        <img class="heder" src="img/logo_unlu.png" alt="Universidad Nacional de Luján">
     </a>
-
-
 </header>
 
 
@@ -67,6 +62,9 @@
             </li>
             <li>
                 <a href="#social" role="tab"><i class="fa fa-youtube"></i></a>
+            </li>
+            <li class="sidebar-footer">
+                <a href="#footer" role="tab"><i class="fa fa-info"></i></a>
             </li>
         </ul>
     </div>
@@ -122,6 +120,36 @@
                 <i class="fa fa-youtube"></i> <a href="https://www.youtube.com/channel/UCxmDq6Qs-Cew1CSlN4tp9fw" target="_blank">YouTube</a>
             </p>
         </div>
+        
+        <div class="leaflet-sidebar-pane" id="footer">
+            <h1 class="leaflet-sidebar-header">
+                Info
+                <span class="leaflet-sidebar-close">
+                    <i class="fa fa-caret-right"></i>
+                </span>
+            </h1>
+
+            <div class="info">
+                Grupo de Estudios de la Cuenca del río Luján (GECLU) <br>
+                Programa de Docencia e Investigación en Sistemas de Información Geográfica (PRODISIG) <br>
+                Instituto de Investigaciones Geográficas (INIGEO) <br>
+                Universidad Nacional de Luján (UNLu) <br>
+                Ruta Nacional N°5 y Av. Constitución 6700, Luján, Argentina <br>
+                Actualizado: 28/04/2021<br>
+                Fuente estadística: Ministerio de Salud de la Nación<br>
+                Fuente cartográfica: Instituto Geográfico Nacional
+            </div>
+
+            <a href="http://www.prodisig.unlu.edu.ar/" class="a-footer" target="_blank">
+                <img src="img/logo-prodisig.png" class="logo-footer">
+            </a>
+            <a href="http://www.inigeo.unlu.edu.ar/" class="a-footer" target="_blank">
+                <img src="img/logo-inigeo.png" class="logo-sidebar">
+            </a>
+            <a href="https://cidetic.unlu.edu.ar" class="a-footer" target="_blank">
+                <img src="img/logo-cidetic.png" class="logo-sidebar">
+            </a>
+        </div>
     </div>
 </div>
 
@@ -153,7 +181,6 @@
         Fuente cartográfica: Instituto Geográfico Nacional
     </div>
 
-
     <div class="tooltip">
         <a href="http://www.prodisig.unlu.edu.ar/" class="a-footer" target="_blank">
             <img src="img/logo-prodisig.png" class="logo-footer">
@@ -171,20 +198,16 @@
     </a>
     <a href="https://cidetic.unlu.edu.ar" class="a-footer" target="_blank">
         <img src="img/logo-cidetic.png" class="logo-footer">
-
     </a>
 
-
-
     <!-- Contador de visitas -->
- <a href="http://www.websmultimedia.com/contador-de-visitas-gratis" class="contador"  title="Contador De Visitas Gratis">
-    <img style="border: 0px solid; display: inline;" alt="contador de visitas" src="http://www.websmultimedia.com/contador-de-visitas.php?id=298379"></a><br><a href='http://www.websmultimedia.com/contador-de-visitas-gratis'></a><br><a href='http://www.websmultimedia.com/diseno-web/sevilla'></a>
+    <a href="http://www.websmultimedia.com/contador-de-visitas-gratis" class="contador" title="Contador De Visitas Gratis">
+        <img style="border: 0px solid; display: inline;" alt="contador de visitas" src="http://www.websmultimedia.com/contador-de-visitas.php?id=298379">
+    </a>
+    <br>
+    <a href='http://www.websmultimedia.com/contador-de-visitas-gratis'></a><br>
+    <a href='http://www.websmultimedia.com/diseno-web/sevilla'></a>
     <!-- Fin Contador de visitas -->
-
-
-
-
-
 </footer>
 
 
@@ -226,7 +249,7 @@
    <script type="text/javascript" src="Plugin/leaflet.groupedlayercontrol.js"></script>
    <script src="Plugin/L.Control.Layers.Tree.js"></script>
    <script src="Plugin/leaflet-timeline-slider.min.js"></script>
-   <script src="boletines.js"></script>
+   <script src="videos.js"></script>
    <script src="conteo.js"></script>
    <script src="map.js"></script>
    <script src="main.js"></script>

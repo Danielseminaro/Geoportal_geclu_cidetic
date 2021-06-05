@@ -5,6 +5,9 @@ if (!Array.prototype.last) {
     };
 };
 
+/** Determina si el dispositivo del usuario es un celular. */
+const esPantallaChica = /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 let myMap = L.map('myMap',{zoomDelta: 0.25,zoomSnap: 0}).setView ([-34.60,-59.10], 9 )   
 
 
@@ -51,6 +54,8 @@ var mapa23 = L.geoJSON(may_2021,{style:style23,popup:popup22})
 var mapa24 = L.geoJSON(mortalidad,{style:style24,popup:popup24})
 var mapa25 = L.geoJSON(aglomeracion,{style:style25,popup:popup25})
 var mapa26 = L.geoJSON(puntos_2020,{pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, MarkerOptions);}});
+
+
 
 
 
@@ -489,21 +494,19 @@ var MarkerOptions ={
 
 
 function getRadius(r) { 
-    return r = 40749? 45: 
-    r = 29562? 35: 
-    r = 15821? 25:  
-    r = 9464? 15: 
-    r = 2280? 7: 
-    r = 747? 3:
+    return r > 40749? 45: 
+    r > 29562? 35: 
+    r > 15821? 25:  
+    r > 9464? 15: 
+    r > 2280? 7: 
+    r > 747? 3:
             3; 
 };
-
-
 
 function estilo18 (feature) {
     return{
         radius: getRadius(feature.properties.mayo), 
-        };
+    };
 };
 
 
@@ -766,9 +769,6 @@ function onLegendAdd(legend, imgSrc) {
     }
 }
 
-
-
-
 var legendC = createLegend();
 onLegendAdd(legendC, "img/ref_mar.png");
 
@@ -843,11 +843,6 @@ onLegendAdd(legend25,"img/ref_aglomeracion.png");
 
 var legend26 = createLegend();
 onLegendAdd(legend26,"img/ref_casos_posi_20.png");
-
-
- 
-     
-
 
 // POPUP DEL MAPA C
 
@@ -1100,29 +1095,28 @@ mapa17 = L.geoJson(hacinamiento, {
 })
 
 
+
+
+
 // POPUP DEL MAPA 18
 
-/*
-
-function popup18 (feature, layer) {
+/* function popup18 (feature, layer) {
 	layer.bindPopup(
         "</p>Nombre: "+feature.properties.Nombre+
-        "</p> Casos:"+feature.properties.mayo+"</p>",
-               
+        "</p> Casos:"+feature.properties.may+"</p>",
+
     {minWidth: 150, maxWidth: 200});
     
     layer.on('mouseover', function () { this.openPopup(); })
+}; */
 
 
-};
-
-*/
     
 var mapa18 = L.geoJSON(puntos, {
     pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, MarkerOptions);
         },	
-    	style:estilo18 /*,onEachFeature:popup18	*/		
+    	style:estilo18 /*,onEachFeature:popup18 */			
 });
 
 
@@ -1334,34 +1328,22 @@ var layerControl = L.control.layers.tree(
         {
             label: "Variables COVID-19",
             children: [
-               
-
                 {
                     label: "Tasa de contagios-cada 100 mil hab.(24/05/21)",
                     layer: mapa5
                 },
-               
-
                 {
                     label: "Tasa de mortalidad-cada 100 mil hab.(24/5/21) ",
                     layer: mapa24
                 },
-
                 {
                     label: "Capa de puntos: Casos confirmados (24/05/21)",
                     layer: mapa18
                 },
-
-
                 {
                     label: "Capa de puntos: Casos confirmados (24/08/20)",
                     layer: mapa26
                 },
-    
-                
-
-               
-
             ]
         },
         {
@@ -1590,19 +1572,13 @@ var capas = {
         Octubre: { mapa: mapa11, leyenda: legendK },
         Noviembre: { mapa: mapa12, leyenda: legendL },
         Diciembre: { mapa: mapa13, leyenda: legendM },
-       
-
     },
-
-
     2021: {
-      
         Enero: { mapa: mapa19, leyenda: legend19},
         Febrero: { mapa: mapa20, leyenda: legend20},
         Marzo: { mapa: mapa21, leyenda: legend21 },
         Abril: { mapa: mapa22, leyenda: legend22 },
         Mayo: { mapa: mapa23, leyenda: legend23 },
-
     }
 };
 
@@ -1630,8 +1606,30 @@ $("#select-año").select2({
     width: "100%"
 });
 
-/** Control deslizante, correspondiente al año seleccionado actualmente. */
-var sliderAnioActual = null;
+/** 
+ * Control que permite seleccionar una capa mensual, correspondiente al año 
+ * seleccionado actualmente. Versión selector desplegable para pantallas
+ * de celular.
+ * 
+ * @type {HTMLElement}
+ */
+var controlAnioActualCombo = null;
+/** 
+ * Control que permite seleccionar una capa mensual, correspondiente al año 
+ * seleccionado actualmente. Versión control deslizante para pantallas de 
+ * escritorio.
+ * 
+ * @type {HTMLElement}
+ */
+var controlAnioActualSlider = null;
+
+/**
+ * Muestra un mensaje de error o de datos faltantes
+ * en el control de capas mensuales (controlAnioActualCombo y controlAnioActualSlider)
+ * 
+ * @type {HTMLElement}
+ */
+var controlAnioActualError = null;
 /** Control leyenda del mes seleccionado actualmente. */
 var leyendaMesActual = null;
 /** Capa del mes seleccionado actualmente. */
@@ -1659,49 +1657,92 @@ function quitarCapaMesActual() {
     }
 }
 
+/**
+ * Cambia la capa seleccionada de acuerdo al mes seleccionado por el usuario.
+ * @param {any[]} listaMeses Lista de meses disponibles para el año seleccionado.
+ * @param {number} i Índice del mes seleccionado, relativo a listaMeses.
+ */
+function cambiarMes(listaMeses, i) {
+    // Cuando se mueve el slider, saco la capa y leyenda actuales y pongo las nuevas. 
+    quitarCapaMesActual();
+
+    var mes = listaMeses[Object.keys(listaMeses)[i]];
+
+    mes.mapa.addTo(myMap);
+    capaMesActual = mes.mapa;
+
+    if (leyendasLateralesActivas.length == 0) {
+        mes.leyenda.addTo(myMap);
+    }
+    leyendaMesActual = mes.leyenda;
+}
+
 $("#select-año").change(e => {
-    if (sliderAnioActual) {
-        sliderAnioActual.remove();
+    if (controlAnioActualCombo) {
+        controlAnioActualCombo.remove();
+    }
+    if (controlAnioActualSlider) {
+        controlAnioActualSlider.remove();
+    }
+    if (controlAnioActualError) {
+        controlAnioActualError.remove();
     }
 
     let listaMeses = capas[e.target.value];
 
     if (Object.keys(listaMeses).length > 0) {
-        sliderAnioActual = L.control.timelineSlider({
+        // Pantalla de celular
+        controlAnioActualCombo = L.control({ position: "topright" });
+        controlAnioActualCombo.onAdd = function() {
+            var div = L.DomUtil.create("div", "label-año control-mes-combo");
+
+            var labelMes = L.DomUtil.create("label", "", div);
+            labelMes.for = "select-mes";
+            labelMes.textContent = "Mes";
+
+            var comboMes = L.DomUtil.create("select", "", labelMes);
+            comboMes.id = "select-mes";
+            Object.keys(listaMeses).forEach((mes, i) => {
+                let opcion = L.DomUtil.create("option", "", comboMes);
+                opcion.value = i;
+                opcion.textContent = mes;
+            });
+
+            $(comboMes).select2({ width: "100%" });
+
+            $(comboMes).change(e => {
+                cambiarMes(listaMeses, e.target.value);
+            });
+
+            $(comboMes).trigger("change");
+
+            return div;
+        };
+        controlAnioActualCombo.addTo(myMap);
+        
+        // Pantalla de escritorio
+        controlAnioActualSlider = L.control.timelineSlider({
             position: "topright",
             timelineItems: Object.keys(listaMeses),
             changeMap: function (e) {
-                /* 
-                 * Cuando se mueve el slider, saco la capa y leyenda actuales y 
-                 * pongo las nuevas. 
-                 */
-                quitarCapaMesActual();
-
-                var mes = listaMeses[Object.keys(listaMeses)[e.value - 1]];
-
-                mes.mapa.addTo(myMap);
-                capaMesActual = mes.mapa;
-
-                if (leyendasLateralesActivas.length == 0) {
-                    mes.leyenda.addTo(myMap);
-                }
-                leyendaMesActual = mes.leyenda;
+                cambiarMes(listaMeses, e.value - 1);
             },
             activeColor: "#02205E"
         });
+        controlAnioActualSlider.addTo(myMap);
     }
     else {
         // Mensaje de error por si no hay mapas disponibles para un año.
-        sliderAnioActual = L.control({ position: "topright" });
-        sliderAnioActual.onAdd = function () {
+        controlAnioActualError = L.control({ position: "topright" });
+        controlAnioActualError.onAdd = function () {
             var div = L.DomUtil.create("div", "mapa-no-disponible label-año");
             div.textContent = "No hay datos disponibles para este año";
             return div;
         };
 
         quitarCapaMesActual();
+        controlAnioActualError.addTo(myMap);
     }
-    sliderAnioActual.addTo(myMap);
 });
 
 // Disparar el evento de cambio del select para mostrar el primer mapa.
@@ -1714,7 +1755,6 @@ $('#select-año').trigger("change");
 myMap.on('overlayadd', function (event) {
     var leyenda;
     switch (event.layer) {
-        
         case mapa5: leyenda = legendE; break;
         case mapa14: leyenda = legendN; break;
         case mapa15: leyenda = legendÑ; break;
@@ -1744,7 +1784,6 @@ myMap.on('overlayadd', function (event) {
 myMap.on('overlayremove', function (event) {
     var leyenda;
     switch (event.layer) {
-        
         case mapa5: leyenda = legendE; break;
         case mapa14: leyenda = legendN; break;
         case mapa15: leyenda = legendÑ; break;
@@ -1754,8 +1793,6 @@ myMap.on('overlayremove', function (event) {
         case mapa24: leyenda = legend24; break;
         case mapa25: leyenda = legend25; break;
         case mapa26: leyenda = legend26; break;
-
-
     }
     if (leyenda) {
         myMap.removeControl(leyenda);

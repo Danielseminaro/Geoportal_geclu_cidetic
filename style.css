@@ -17,14 +17,33 @@ body{
   flex-direction: column;
 }
 
-header{
+
+
+header {
 	padding: 10px;
+  max-height: 110px;
   background: #A8D18D;
-  flex: 0 0 10px;
+  display: flex;
+  flex: 1 1 auto;
+}
+
+header * {
+  margin: 0 0.5vw;
+  max-height: 9vw;
+  display: inline-flex;
+}
+
+.header-right {
+  margin-left: auto;
+}
+
+.heder {
+  margin-left: auto;
 }
 
 .map-container {
-  flex: 1 1 1000px;
+  flex: 1 1 800px;
+  min-height: 300px;
 }
 
 footer {
@@ -32,75 +51,49 @@ footer {
   flex: 0 0 110px;
 }
 
-.header {
-  margin: 10px;
-  height: 90px;
-}
-
-.logo-header {
-    height: 90px;
-}
-
-.simbolo-Geoportal{
-  margin-right: 50px;
-  height: 100px;
-  float: right;
-}
-
-
-
-.logo-geclu {
-    float: left;
-}
-
-.logo-unlu {
-    float: right;
-}
-
-
 
 .infobar {
     background: #A8D18D;
     font-family: Georgia;
-    font-size: xx-large;
+    font-size: 3.3vw;
     font-weight: bold;
     padding: 0 0 10px 10px;
 }
 
+
 .infobar-label {
-    color: #C20000;
+  color: #C20000;
 }
 
 .infobar-number {
-    color: #02205E;
+  color: #02205E;
 }
 
-.select2-container--default 
-.select2-selection--single 
-.select2-selection__rendered {
-    font-size: large;
+.selection {
+  font-size: calc(12px + 0.5vw);
 }
 
 .select2-results, 
 .select2-search, 
 .select2-search input { 
-    font-family: Georgia;
-    font-weight: bold;
+  font-family: Georgia;
+  font-weight: bold;
 }
 
-.leaflet-control-layers-expanded {
-    padding: 6px 10px 6px 6px;
-    color: rgb(8, 8, 8);
-    background: rgb(194, 231, 194); 
-    border: 2px none rgba(203, 231, 186, 0.2);
 
+.leaflet-control-layers-expanded {
+  padding: 6px 10px 6px 6px;
+  color: rgb(8, 8, 8);
+  background: rgb(194, 231, 194); 
+  border: 2px none rgba(203, 231, 186, 0.2);
+  
 }
 
 
 
 .icon-printer{
-    
-    background-color: #fff;
+  
+  background-color: #fff;
     padding: 8px 8px ;
     color: black;
     border: 2px solid #ccc;
@@ -127,10 +120,7 @@ font-weight: bold;
     float: left;
 }
 
-
-
 .contador {
-
   float:right;
 }
 
@@ -181,6 +171,9 @@ font-size: 16px;
 font-weight: bold;
 
 }
+
+
+
 
 
 
@@ -292,6 +285,24 @@ font-weight: bold;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: bold;
     font-size: large;   
+}
+
+.control-mes-combo {
+  display: none;
+}
+
+.control_container {
+  display: block;
+}
+
+@media screen and (max-width: 1280px) {
+  .control-mes-combo {
+    display: block;
+  }
+  
+  .control_container {
+    display: none;
+  }
 }
 
 .leaflet-top.leaflet-right > .leaflet-control {
@@ -425,4 +436,47 @@ font-weight: bold;
 #youtube-selector li:hover {
   background-color: #e8e8e8;
   color: black;
+}
+
+.youtube-modal-seccion-titulo {
+    border-color: white;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+/* Pantalla PC */
+footer {
+    display: block;
+}
+
+.sidebar-footer {
+    display: none;
+}
+
+/* Pantalla Celular */
+@media only screen and (max-width: 1365px) {
+    footer {
+        display: none;
+    }
+
+    .sidebar-footer {
+        display: inline;
+    }
+
+    .logo-sidebar {
+        width: 100%;
+        background-color: white;
+    }
+
+    .leaflet-bottom.leaflet-left {
+        display: none;
+    }
+
+    .legend1 img {
+        width: 75%;
+        float: right;
+    }
 }

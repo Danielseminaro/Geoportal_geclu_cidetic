@@ -1,7 +1,7 @@
 "use strict";
 
 // Se carga desde boletines.js
-var boletines = boletines || {videos: [{link: 'https://www.youtube.com/embed/xDuHVaUM1jQ', titulo: 'Boletín N° 19-Edición especial-Geografía del COVID-19: "A un año de la pandemia"'}]};
+var videos = videos || { secciones: [{ nombre: "Boletín informativo COVID-19", videos: [{ link: 'https://www.youtube.com/embed/LMtGPI9a6Rg', titulo: 'Boletín N° 1-Reporte semanal Primera edición' }]}]};
 
 var ReproductorYoutube = {
   // Cambiar el src del iframe para reproducir otro video
@@ -15,6 +15,48 @@ var ReproductorYoutube = {
     link.video =  video;
     link.textContent = titulo;
     return link;
+  },
+
+  /**
+   * Crea una sección en el selector, que tiene un título y una lista con todos
+   * los videos disponibles. La sección se puede abrir y cerrar al hacer clic
+   * sobre su título.
+   * @param {HTMLElement} selector Lugar donde se seleccionan los videos.
+   * @param {*} seccion Sección con su lista de videos.
+   */
+  crearSeccion: function(selector, seccion) {
+    let itemSeccion = document.createElement("div");
+    let divTituloSeccion = document.createElement("div");
+    divTituloSeccion.className = "youtube-modal-seccion-titulo";
+    divTituloSeccion.innerHTML = `<i class="fa fa-folder-open"></i> ${seccion.nombre}`;
+    divTituloSeccion.onclick = this.onSeccionClick;
+    let listaSeccion = document.createElement("ul");
+
+    for (let video of seccion.videos) {
+      listaSeccion.appendChild(this.crearLink(video.link, video.titulo));
+    }
+
+    itemSeccion.appendChild(divTituloSeccion);
+    itemSeccion.appendChild(listaSeccion);
+    selector.appendChild(itemSeccion);
+  },
+
+  /**
+   * Muestra/oculta la lista de videos de la sección cuando se hace click en el 
+   * nombre de la sección. También cambia el ícono de carpeta abierta/cerrada.
+   * @param {MouseEvent} e Evento del clic
+   */
+  onSeccionClick: function(e) {
+    let display, icon;
+    if (e.target.nextSibling.style.display === "none") {
+      display = "block"
+      icon = "folder-open";
+    } else {
+      display = "none"
+      icon = "folder";
+    }
+    e.target.nextSibling.style.display = display;
+    e.target.querySelector("i").className = `fa fa-${icon}`;
   },
 
   // Abrir el reproductor en una ventana modal
@@ -39,7 +81,7 @@ var ReproductorYoutube = {
     
     const embed = document.createElement("iframe");
     embed.id = "youtube-embed-video";
-    embed.src = boletines.videos[0].link;
+    embed.src = videos.secciones[0].videos[0].link;
     embed.title = "YouTube video player";
     embed.frameborder = "0";
     embed.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
@@ -50,11 +92,12 @@ var ReproductorYoutube = {
     selectorContainer.className = "youtube-selector-container";
     player.appendChild(selectorContainer);
 
-    const selector = document.createElement("ul");
+    const selector = document.createElement("div");
     selector.id = "youtube-selector";
-    for (let boletin of boletines.videos) {
-      selector.appendChild(this.crearLink(boletin.link, boletin.titulo));
+    for (let seccion of videos.secciones) {
+      this.crearSeccion(selector, seccion);
     }
+
     selector.addEventListener("click", (e) => {
       if (e.target && e.target.nodeName == "LI") {
         ReproductorYoutube.cambiarVideo(e.target.video);

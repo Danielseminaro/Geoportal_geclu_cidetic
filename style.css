@@ -176,10 +176,6 @@ font-weight: bold;
 
 
 
-
-
-
-
 .leaflet-control-layers{
     width: 150%;
     height: 150%;
@@ -346,11 +342,6 @@ font-weight: bold;
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-
-
-
-
-
 
 
 

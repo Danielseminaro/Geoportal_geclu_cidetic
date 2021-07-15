@@ -54,10 +54,9 @@ var mapa23 = L.geoJSON(may_2021,{style:style23,popup:popup22})
 var mapa24 = L.geoJSON(mortalidad,{style:style24,popup:popup24})
 var mapa25 = L.geoJSON(aglomeracion,{style:style25,popup:popup25})
 var mapa26 = L.geoJSON(puntos_2020,{pointToLayer: function (feature, latlng) {return L.circleMarker(latlng, MarkerOptions);}});
-
-
-
-
+var mapa27 = L.geoJSON(jun_2021,{style:style27,popup:popup27})
+var mapa28 = L.geoJSON(mortalidad_jun_2021,{style:style28,popup:popup28})
+var mapa29 = L.geoJSON(tasa_de_contagios_jun_21,{style:style29,popup:popup29})
 
 
 
@@ -743,6 +742,87 @@ function estilo26 (feature) {
 };
 
 
+// ESTILOS MAPA 27
+
+
+function getColor27(d) {
+    return d > 15789? '#ff0000' :
+           d > 12000? '#ff0000' :
+           d > 11373?  '#ff4040' :
+           d > 10730?   '#ff8080':
+           d > 10396?   '#ffbfbf' :
+           d > 9277?   '#ffffff' :
+                        '#ffffff';
+}
+
+
+
+function style27(feature) {
+    return {
+        fillColor: getColor27(feature.properties.Tasa_Contagios),
+        weight: 2,
+        opacity: 1,
+        color: 'black',
+        dashArray: '5',
+        fillOpacity: 0.9
+    };
+}
+
+
+// ESTILOS MAPA 28
+
+function getColor28(d) {
+    return d > 401? '#ff0000' :
+           d > 330? '#ff0000' :
+           d > 311?  '#ff4040' :
+           d > 271?   '#ff8080':
+           d > 256?   '#ffbfbf' :
+           d > 218?   '#ffffff' :
+                        '#ffffff';
+}
+
+
+
+function style28(feature) {
+    return {
+        fillColor: getColor28(feature.properties.Tasa_Mortalidad),
+        weight: 2,
+        opacity: 1,
+        color: 'black',
+        dashArray: '5',
+        fillOpacity: 0.9
+    };
+}
+
+
+
+// ESTILOS MAPA 29
+
+
+
+function getColor29(d) {
+    return d > 15789? '#08306b' :
+           d > 12000 ? '#08306b' :
+           d > 11373? '#2171b5' :
+           d > 10730 ? '#6baed6' :
+           d > 10396  ? '#deebf7' :
+           d > 9277 ? '#f7fbff' :
+                    '#f7fbff';
+}
+
+
+
+function style29(feature) {
+    return {
+        fillColor: getColor29(feature.properties.Tasa_Contagios),
+        weight: 2,
+        opacity: 1,
+        color: 'black',
+        dashArray: '5',
+        fillOpacity: 0.9
+    };
+}
+
 
 
 
@@ -843,6 +923,18 @@ onLegendAdd(legend25,"img/ref_aglomeracion.png");
 
 var legend26 = createLegend();
 onLegendAdd(legend26,"img/ref_casos_posi_20.png");
+
+var legend27 = createLegend();
+onLegendAdd(legend27,"img/ref_jun_2021.png");
+
+var legend28 = createLegend();
+onLegendAdd(legend28,"img/ref_mortalidad_jun_2021.png");
+
+var legend29 = createLegend();
+onLegendAdd(legend29,"img/ref_tasa_de_contagios_jun_21.png");
+
+
+
 
 // POPUP DEL MAPA C
 
@@ -1292,7 +1384,7 @@ mapa25 = L.geoJson(aglomeracion, {
 
 function popup26 (feature, layer) {
 	layer.bindPopup(
-        "</p>Nombre: "+feature.properties.Nombre+
+        "</p>Nombre: "+feature.properties.NOMBRE+
         "</p> Casos:"+feature.properties.nuevos_casos+"</p>",
                
     {minWidth: 150, maxWidth: 200});
@@ -1313,6 +1405,70 @@ var mapa26 = L.geoJSON(puntos_2020, {
 
 
 
+// POPUP DEL MAPA 27
+
+
+
+function popup27 (feature, layer) {
+	layer.bindPopup(
+        "</p>Nombre: "+feature.properties.Nombre+
+        "</p>Casos cada cien mil (100.000) habitantes, mes de Junio:"+feature.properties.Tasa_Contagios+"</p>",
+               
+    {minWidth: 150, maxWidth: 200});
+    
+    layer.on('mouseover', function () { this.openPopup(); })
+
+
+};
+
+
+mapa27 = L.geoJson(jun_2021, { 
+    style:style27, onEachFeature: popup27
+
+})
+
+// POPUP DEL MAPA 28
+
+
+function popup28 (feature, layer) {
+	layer.bindPopup(
+        "</p>Nombre: "+feature.properties.Nombre+
+        "</p>Tasa de mortalidad (cada 100 mil hab.):"+feature.properties.Tasa_Mortalidad+"</p>",
+               
+    {minWidth: 150, maxWidth: 200});
+    
+    layer.on('mouseover', function () { this.openPopup(); })
+
+
+};
+
+
+mapa28 = L.geoJson(mortalidad_jun_2021, { 
+    style:style28, onEachFeature: popup28
+
+})
+
+// POPUP DEL MAPA 29
+
+function popup29 (feature, layer) {
+	layer.bindPopup(
+        "</p>Nombre: "+feature.properties.Nombre+
+        "</p>Casos cada cien mil (100.000) habitantes, mes de Junio:"+feature.properties.Tasa_Contagios+"</p>",
+               
+    {minWidth: 150, maxWidth: 200});
+    
+    layer.on('mouseover', function () { this.openPopup(); })
+
+
+};
+
+
+
+mapa29 = L.geoJson(tasa_de_contagios_jun_21, { 
+    style:style29, onEachFeature: popup29
+
+})
+
 
 
 // SIDEBAR 
@@ -1332,10 +1488,25 @@ var layerControl = L.control.layers.tree(
                     label: "Tasa de contagios-cada 100 mil hab.(24/05/21)",
                     layer: mapa5
                 },
+
+
+                {
+                    label: "Tasa de contagios-cada 100 mil hab.(28/06/21)",
+                    layer: mapa29
+                },
+
+
                 {
                     label: "Tasa de mortalidad-cada 100 mil hab.(24/5/21) ",
                     layer: mapa24
                 },
+
+                {
+                    label: "Tasa de mortalidad-cada 100 mil hab.(28/06/21)",
+                    layer: mapa28
+                },
+
+
                 {
                     label: "Capa de puntos: Casos confirmados (24/05/21)",
                     layer: mapa18
@@ -1344,6 +1515,12 @@ var layerControl = L.control.layers.tree(
                     label: "Capa de puntos: Casos confirmados (24/08/20)",
                     layer: mapa26
                 },
+
+               
+
+
+               
+
             ]
         },
         {
@@ -1579,6 +1756,7 @@ var capas = {
         Marzo: { mapa: mapa21, leyenda: legend21 },
         Abril: { mapa: mapa22, leyenda: legend22 },
         Mayo: { mapa: mapa23, leyenda: legend23 },
+        Junio: { mapa: mapa27, leyenda: legend27 }
     }
 };
 
@@ -1764,6 +1942,10 @@ myMap.on('overlayadd', function (event) {
         case mapa24: leyenda = legend24; break;
         case mapa25: leyenda = legend25; break;
         case mapa26: leyenda = legend26; break;
+        case mapa27: leyenda = legend27; break;
+        case mapa28: leyenda = legend28; break;
+        case mapa29: leyenda = legend29; break;
+
     }
 
     
@@ -1793,6 +1975,10 @@ myMap.on('overlayremove', function (event) {
         case mapa24: leyenda = legend24; break;
         case mapa25: leyenda = legend25; break;
         case mapa26: leyenda = legend26; break;
+        case mapa27: leyenda = legend27; break;
+        case mapa28: leyenda = legend28; break;
+        case mapa29: leyenda = legend29; break;
+
     }
     if (leyenda) {
         myMap.removeControl(leyenda);

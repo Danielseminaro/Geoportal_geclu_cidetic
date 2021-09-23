@@ -1,4 +1,4 @@
-tasa_de_contagios_may_21 = {
+tasa_de_contagios_may_21 = tasa_de_contagios_may_21 = {
     "type": "FeatureCollection",
     "name": "cuenca_covid_2021",
     "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
